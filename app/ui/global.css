@@ -1,3 +1,15 @@
+/*
+You can use this file to add CSS rules to all the routes in your application - such as CSS reset rules,
+site-wide styles for HTML elements like links, and more. You can import global.css in any component in
+your application, but it's usually good practice to add it to your top-level component. In Next.js,
+this is the root layout (/app/layout.tsx).
+
+Unlike JavaScript modules, CSS files don't have the concept of "exports" (although there are "CSS
+modules" that do follow this approach) because they're not modules in the traditional sense. CSS is
+simply a collection of style rules, and when you import it in a React/Next.js component, you're just
+asking Webpack (or the build system) to load those styles.
+*/
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
