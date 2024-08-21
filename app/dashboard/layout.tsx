@@ -5,8 +5,10 @@ The <Layout /> component receives a children prop. This child can either be a pa
 In your case, the pages inside /dashboard will automatically be nested inside a <Layout />. 
 
 One benefit of using layouts in Next.js is that on navigation, only the page components update while 
-the layout won't re-render. This is called partial rendering */
+the layout won't re-render. This is called partial rendering. */
 import SideNav from '@/app/ui/dashboard/sidenav';
+
+export const experimental_ppr = true;
 
 export default function Layout({ children }: { children: React.ReactNode }) {
     return (

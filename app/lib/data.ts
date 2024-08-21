@@ -1,3 +1,6 @@
+/* You can call sql inside any Server Component. But to allow you to navigate the components more 
+easily, we've kept all the data queries in the data.ts file, and you can import them into the 
+components. */
 import { sql } from '@vercel/postgres';
 import {
   CustomerField,
@@ -13,13 +16,12 @@ export async function fetchRevenue() {
   try {
     // Artificially delay a response for demo purposes.
     // Don't do this in production :)
-
-    // console.log('Fetching revenue data...');
-    // await new Promise((resolve) => setTimeout(resolve, 3000));
+    console.log('Fetching revenue data...');
+    await new Promise((resolve) => setTimeout(resolve, 3000));
 
     const data = await sql<Revenue>`SELECT * FROM revenue`;
 
-    // console.log('Data fetch completed after 3 seconds.');
+    console.log('Data fetch completed after 3 seconds.');
 
     return data.rows;
   } catch (error) {
@@ -60,6 +62,17 @@ export async function fetchCardData() {
          SUM(CASE WHEN status = 'pending' THEN amount ELSE 0 END) AS "pending"
          FROM invoices`;
 
+    /* A common way to avoid waterfalls (a sequence of network requests that depend on the completion 
+    of previous requests) is to initiate all data requests at the same time - in  parallel. In 
+    JavaScript, you can use the Promise.all() or Promise.allSettled() functions to  initiate all 
+    promises at the same time. 
+    
+    By using this pattern, you can:
+    - Start executing all data fetches at the same time, which can lead to performance gains.
+    - Use a native JavaScript pattern that can be applied to any library or framework.
+    
+    However, there is one disadvantage of relying only on this JavaScript pattern: what happens if 
+    one data request is slower than all the others? */
     const data = await Promise.all([
       invoiceCountPromise,
       customerCountPromise,
