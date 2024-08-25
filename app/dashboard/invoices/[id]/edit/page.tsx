@@ -1,6 +1,11 @@
 import Form from '@/app/ui/invoices/edit-form';
 import Breadcrumbs from '@/app/ui/invoices/breadcrumbs';
 import { fetchInvoiceById, fetchCustomers } from '@/app/lib/data';
+/* Other than using the special error.tsx file, can handle errors gracefully is by using the notFound 
+function with a not-found file. While error.tsx is useful for catching all errors, notFound can be 
+used when you try to fetch a resource that doesn't exist. Also keep in mind that notFound will take 
+precedence over error.tsx, so you can reach out for it when you want to handle more specific errors! */
+import { notFound } from 'next/navigation';
 
 /* 
 In addition to 'searchParams', page components also accept a prop called 'params' which you can use 
@@ -18,6 +23,11 @@ export default async function Page({ params }: { params: { id: string } }) {
         fetchInvoiceById(id),
         fetchCustomers(),
     ]);
+
+    if (!invoice) {
+        notFound();
+    }
+
     return (
         <main>
             <Breadcrumbs
