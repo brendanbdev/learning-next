@@ -6,6 +6,11 @@ function with a not-found file. While error.tsx is useful for catching all error
 used when you try to fetch a resource that doesn't exist. Also keep in mind that notFound will take 
 precedence over error.tsx, so you can reach out for it when you want to handle more specific errors! */
 import { notFound } from 'next/navigation';
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Edit Invoice',
+};
 
 /* 
 In addition to 'searchParams', page components also accept a prop called 'params' which you can use 
