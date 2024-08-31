@@ -1,5 +1,5 @@
-/* This file exports an authConfig object. This object will contain the configuration options for 
-NextAuth.js. 
+/* This file exports an authConfig object. This object will contain the configuration options argument 
+for the NextAuth object. 
 
 You can use the 'pages' option to specify the route for custom sign-in, sign-out, and error pages. 
 This is not required, but by adding signIn: '/login' into our 'pages' option, the user will be 
@@ -27,7 +27,13 @@ export const authConfig = {
       return true;
     },
   },
-  /* The 'providers' option is an array where you list different login options. For now, it's an empty 
-  array to satisfy NextAuth config. */
+  /* The 'providers' option is an array where you list different login options. It is empty in this 
+  configuration so that we can use this config to make a NextAuth instance in the special Next.js 
+  Middleware file named 'middleware.ts' (because it must be named that, because it is a special file).
+  
+  We want to use a provider that uses 'bcrypt' which relies on Node.js APIs not available in Next.js 
+  Middleware.
+  
+  So, we add the providers in what can be considered the main instance of NextAuth in 'auth.ts'. */
   providers: [],
 } satisfies NextAuthConfig;
